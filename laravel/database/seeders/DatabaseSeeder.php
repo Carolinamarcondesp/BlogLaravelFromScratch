@@ -15,13 +15,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::truncate();
+        /*User::truncate();
         Post::truncate();
         Category::truncate();
 
-        $user = User::factory()->create();
+        $user = User::factory()->create();*/
 
-        $personal = Category::create([
+        $user = User::factory()->create([
+            'name' => 'Carolina Marcondes'
+        ]);
+
+        Post::factory(5)->create([
+            'user_id' => $user->id
+        ]);
+
+       /* $personal = Category::create([
             'name' => 'Personal',
             'slug' => 'personal'
         ]);
@@ -60,7 +68,7 @@ class DatabaseSeeder extends Seeder
             dictum lacus at justo ornare blandit. Pellentesque finibus quis ante non gravida. Nullam pulvinar risus vel
             ursus feugiat. Morbi quis sodales neque. Phasellus ac nunc convallis, elementum mi eget, aliquet felis.
             Cras elementum mauris et sem vehicula finibus.</p>'
-        ]);
+        ]);*/
 
 
         //\App\Models\User::factory(10)->create();
