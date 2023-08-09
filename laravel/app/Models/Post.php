@@ -2,67 +2,31 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Post
+class Post extends Model
 {
-    public $title;
-    public $excerpt;
+    use HasFactory;
 
-    public $date;
+    protected $fillable = ['title', 'excerpt', 'body', 'slug', 'category_id'];
 
-    public $body;
+    protected $with = ['category', 'author'];
 
-    public $slug;
+    public function category(){
 
+        //relationships types - hasOne, hasMany, belongsTo, belongsToMany
 
-    public function __construct($title, $excerpt, $date, $body, $slug)
-    {
-        $this->title = $title;
-        $this->excerpt = $excerpt;
-        $this->date = $date;
-        $this->body = $body;
-        $this->slug = $slug;
-    }
-
-    public static function all()
-    {
-        return cache()->rememberForever('post.all', function (){
-            return collect(File::files(resource_path("posts")))
-                ->map(fn($file) => \Spatie\YamlFrontMatter\YamlFrontMatter::parseFile($file))
-                ->map(fn($document) => new Post(
-                    $document->title,
-                    $document->excerpt,
-                    $document->date,
-                    $document->body(),
-                    $document->slug
-                ))->sortByDesc('date');
-        });
+        return $this->belongsTo(Category::class);
 
     }
 
-    public static function find($slug)
-    {
-       //of all the blog posts, find the one with a slug with a slug thar matches the one that was requested
-       return static::all()->firstWhere('slug', $slug);
+    public function author(){
 
-
-
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public static function findOrFail($slug)
-    {
 
-        $post = static::find($slug);
-
-        if(!$post){
-            throw new ModelNotFoundException();
-        }
-
-        return $post;
-
-    }
 
 
 }
