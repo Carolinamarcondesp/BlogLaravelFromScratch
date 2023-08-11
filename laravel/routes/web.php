@@ -24,7 +24,7 @@ Route::get('/', function () {
         'posts' => Post::latest()->get(),
         'categories' => \App\Models\Category::all()
     ]);
-});
+})->name('home');
 
 Route::get('posts/{post:slug}', function (Post $post){
     return view('post', [
@@ -41,7 +41,7 @@ Route::get('categories/{category:slug}', function (\App\Models\Category $categor
         'categories' => \App\Models\Category::all()
 
     ]);
-});
+})->name('category');
 
 Route::get('authors/{author:username}', function (\App\Models\User $author) {
 
