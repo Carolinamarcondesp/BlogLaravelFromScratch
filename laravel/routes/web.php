@@ -15,23 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-   /* \Illuminate\Support\Facades\DB::listen(function ($query){
-        \Illuminate\Support\Facades\Log::info($query->sql, $query->bindings);
-    });*/
+Route::get('/', [\App\Http\Controllers\PostController::class, 'index'])->name('home');
 
-    return view('posts', [
-        'posts' => Post::latest()->get(),
-        'categories' => \App\Models\Category::all()
-    ]);
-})->name('home');
 
-Route::get('posts/{post:slug}', function (Post $post){
-    return view('post', [
-        'post' => $post
-
-    ]);
-});
+Route::get('posts/{post:slug}', [\App\Http\Controllers\PostController::class, 'show']);
 
 Route::get('categories/{category:slug}', function (\App\Models\Category $category) {
 
