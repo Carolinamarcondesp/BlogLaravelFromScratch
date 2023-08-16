@@ -13,6 +13,24 @@ class Post extends Model
 
     protected $with = ['category', 'author'];
 
+    public function scopeFilter($query, array $filters) // Post::newQuery()->filter()
+    {
+        // request(['search']) will be past to $filters array which is the query scope bellow
+        // $query is a build-in laravel query build
+        //later on if I have any other filter to the posts add them here
+
+        /*if ($filters['search'] ?? false){
+            $query->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('body', 'like', '%' . request('search') . '%');
+        }*/
+
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('body', 'like', '%' .$search . '%');
+
+        });
+
+    }
     public function category(){
 
         //relationships types - hasOne, hasMany, belongsTo, belongsToMany
