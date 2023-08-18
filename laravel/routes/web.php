@@ -21,7 +21,9 @@ Route::get('posts/{post:slug}', [\App\Http\Controllers\PostController::class, 's
 
 
 
-Route::get('categories/{category:slug}', function (\App\Models\Category $category) {
+/*Route::get('categories/{category:slug}', function (\App\Models\Category $category) {
+
+     *****   DEPRECATED POST CONTROLLER IS NOW HANDLING *****
 
     return view('posts', [
         'posts' => $category->posts,
@@ -29,7 +31,7 @@ Route::get('categories/{category:slug}', function (\App\Models\Category $categor
         'categories' => \App\Models\Category::all()
 
     ]);
-})->name('category');
+})->name('category');*/
 
 Route::get('authors/{author:username}', function (\App\Models\User $author) {
 

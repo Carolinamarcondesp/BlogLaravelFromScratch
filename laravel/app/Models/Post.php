@@ -19,22 +19,20 @@ class Post extends Model
         // $query is a build-in laravel query build
         //later on if I have any other filter to the posts add them here
 
-        /*if ($filters['search'] ?? false){
-            $query->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('body', 'like', '%' . request('search') . '%');
-        }*/
+        $query->when($filters['search'] ?? false, fn($query, $search) =>
+            $query
+            ->where('title', 'like', '%' . $search . '%')
+            ->orWhere('body', 'like', '%' . $search . '%'));
 
-        $query->when($filters['search'] ?? false, function ($query, $search) {
-            $query->where('title', 'like', '%' . $search . '%')
-                ->orWhere('body', 'like', '%' .$search . '%');
-        });
+        $query->when($filters['category'] ?? false, fn ($query, $category) =>
+            $query->whereHas('category', fn ($query) =>
+                $query->where('slug', $category)));
+                //eloquent tip: speak out loud to avoid confusion
+                //so we are dealing with posts
+                //give me the ones where they have (whereHas) a category
+                //specifically where the category's slug matches what user requested ($category)
 
-        $query->when($filters['category'] ?? false, function ($query, $category) {
-            $query->where('title', 'like', '%' . $category . '%')
-                ->orWhere('body', 'like', '%' .$category . '%');
-        });
-
-    }
+        }
     public function category(){
 
         //relationships types - hasOne, hasMany, belongsTo, belongsToMany
