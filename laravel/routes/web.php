@@ -16,14 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\PostController::class, 'index'])->name('home');
-
 Route::get('posts/{post:slug}', [\App\Http\Controllers\PostController::class, 'show']);
 
 
 
-/*Route::get('categories/{category:slug}', function (\App\Models\Category $category) {
 
-     *****   DEPRECATED POST CONTROLLER IS NOW HANDLING *****
+/*         ******************** DEPRECATED POST CONTROLLER IS NOW HANDLING *************************
+
+Route::get('categories/{category:slug}', function (\App\Models\Category $category) {
+
 
     return view('posts', [
         'posts' => $category->posts,
@@ -31,12 +32,15 @@ Route::get('posts/{post:slug}', [\App\Http\Controllers\PostController::class, 's
         'categories' => \App\Models\Category::all()
 
     ]);
-})->name('category');*/
+})->name('category');
 
 Route::get('authors/{author:username}', function (\App\Models\User $author) {
-    return view('posts', [
+    return view('posts.index', [
         'posts' => $author->posts
     ]);
 });
+
+
+*/
 
 

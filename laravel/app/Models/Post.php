@@ -32,6 +32,9 @@ class Post extends Model
                 //give me the ones where they have (whereHas) a category
                 //specifically where the category's slug matches what user requested ($category)
 
+        $query->when($filters['author'] ?? false, fn ($query, $author) =>
+        $query->whereHas('author', fn ($query) =>
+        $query->where('username', $author)));
         }
     public function category(){
 
