@@ -10,9 +10,11 @@ class PostController extends Controller
 {
     public function index()
     {
+        //Laravel TIP: when you return an eloquent collection from a route, laravel converts it into JSON
+        //return Post::latest()->filter(request(['search', 'category', 'author']))->paginate();
 
         return view('posts.index', [
-            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->get(),
+            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString(),
         ]);
     }
 
