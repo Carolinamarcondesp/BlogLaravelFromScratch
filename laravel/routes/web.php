@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\PostCommentsController;
 use App\Models\Post;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\PostController::class, 'index'])->name('home');
+
 Route::get('posts/{post:slug}', [\App\Http\Controllers\PostController::class, 'show']);
+Route::post('posts/{post:slug}/comments', [\App\Http\Controllers\PostCommentsController::class, 'store']);
 
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
