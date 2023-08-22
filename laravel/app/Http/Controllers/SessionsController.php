@@ -42,6 +42,7 @@ class SessionsController extends Controller
     {
         auth()->logout();
 
-        redirect('/')->with('success', 'Goodbye!');
+        return back()->with('success', 'Goodbye!');
+        //redirect('/')->with('success', 'Goodbye!');
     }
 }
