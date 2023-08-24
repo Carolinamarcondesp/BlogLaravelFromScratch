@@ -23,7 +23,7 @@ class MustBeAdministrator
          }*/
         //refactor to bellow simply adding the "?" optional operator
 
-        if(auth()->user()?->username != 'CarolMarcondes'){
+        if(auth()->user()?->username != 'CarolMarc'){
 
             abort(Response::HTTP_FORBIDDEN);
         }
