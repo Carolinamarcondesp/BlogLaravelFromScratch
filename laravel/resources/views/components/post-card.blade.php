@@ -43,9 +43,7 @@
                     <div class="ml-3">
                         <h5 class="font-bold">
                             <a href="/?author={{$post->author->username}}">{{ $post->author->name }}</a>
-                            @php
-                                ds($post->author->name );
-                            @endphp
+
                         </h5>
 
                     </div>
