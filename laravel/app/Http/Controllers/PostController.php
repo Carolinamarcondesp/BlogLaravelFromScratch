@@ -56,7 +56,7 @@ class PostController extends Controller
         //ds($attributes['thumbnail'] = request()->file('thumbnail')->store('public/thumbnails'));
         //auth()->user()->posts()->create($attributes);
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Published!');
 
     }
 }
