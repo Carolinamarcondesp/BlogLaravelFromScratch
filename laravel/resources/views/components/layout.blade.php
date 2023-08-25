@@ -33,17 +33,24 @@
 
             <!-- or inverse - if user is signed in render this-->
             @auth
-                <span class="text-xs font-bold uppercase">Welcome Back , {{ auth()->user()->name }}!</span>
-                <form method="POST" action="/logout">
-                    @csrf
+                <x-dropdown>
+                    <x-slot name="trigger">
+                        <button class="text-xs font-bold uppercase">Welcome Back , {{ auth()->user()->name }}!</button>
+                    </x-slot>
 
-                    <div class="">
-                        <button type="submit" class="text-xm font-semibold text-blue-500 ml-6">
-                            Log Out
-                        </button>
-                    </div>
+                    @admin
+                    <x-dropdown-item href="/admin/posts" :active="request()->is('admin/posts')">Dashboard</x-dropdown-item>
+                    <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">New Post</x-dropdown-item>
+                    @endadmin
 
-                </form>
+                    <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()" >Log Out</x-dropdown-item>
+
+                    <form id="logout-form" method="POST" action="/logout">
+                        @csrf
+
+                    </form>
+                </x-dropdown>
+
 
             @else
                 <a href="/register" class="text-xs font-bold uppercase">Register</a>
