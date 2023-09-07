@@ -4,40 +4,38 @@ namespace App\Http\Controllers;
 
 
 
+use App\Http\Resources\UserResource;
+use App\Models\User;
+use App\Services\SessionsService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class SessionsController extends Controller
 {
+    public function __construct(private readonly SessionsService $service)
+    {
+    }
+
     public function create()
     {
         return view('sessions.create');
     }
 
-    public function store()
+    public function login(Request $request)
     {
-        //validate the request
 
-        $attributes = request()->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-        //attempt to authenticate and login the user based on the provided credentials
-        if(!auth()->attempt($attributes)){
-            throw ValidationException::withMessages([
-                'email' => 'Your provided credentials could not be verified.'
-            ]);
-        }
 
-        //auth failed other way to write it
-        /*return  back()
-            ->withInput()
-            ->withErrors(['email' => 'Your provided credentials could not be verified.']);*/
+        return $this->service->login($request->email, $request->password, $request->header('user-agent'), $request->wantsJson());
 
-        session()->regenerate(); //to avoid session fixation attacks
-
-        return redirect('/')->with('success', 'Welcome Back!');
 
     }
+
+    public function myAccount(Request $request)
+    {
+        return $this->service->myAccount();
+    }
+
     public function destroy()
     {
         auth()->logout();
