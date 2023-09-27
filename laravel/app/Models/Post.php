@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'excerpt','user_id', 'body', 'slug', 'category_id', 'thumbnail'];
+    protected $fillable = ['title', 'excerpt', 'user_id', 'body', 'slug', 'category_id', 'thumbnail'];
 
     protected $with = ['category', 'author'];
 
@@ -21,13 +21,13 @@ class Post extends Model
 
         $query->when(
             $filters['search'] ?? false,
-            fn($query, $search) => $query->where(fn($query) => $query->where('title', 'like', '%' . $search . '%')
-                ->orWhere('body', 'like', '%' . $search . '%'))
+            fn ($query, $search) => $query->where(fn ($query) => $query->where('title', 'like', '%'.$search.'%')
+                ->orWhere('body', 'like', '%'.$search.'%'))
         );
 
         $query->when(
             $filters['category'] ?? false,
-            fn($query, $category) => $query->whereHas('category', fn($query) => $query->where('slug', $category))
+            fn ($query, $category) => $query->whereHas('category', fn ($query) => $query->where('slug', $category))
         );
         //eloquent tip: speak out loud to avoid confusion
         //so we are dealing with posts
@@ -36,7 +36,7 @@ class Post extends Model
 
         $query->when(
             $filters['author'] ?? false,
-            fn($query, $author) => $query->whereHas('author', fn($query) => $query->where('username', $author))
+            fn ($query, $author) => $query->whereHas('author', fn ($query) => $query->where('username', $author))
         );
     }
 
@@ -44,7 +44,6 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
-
 
     public function category()
     {
@@ -57,6 +56,4 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-
 }

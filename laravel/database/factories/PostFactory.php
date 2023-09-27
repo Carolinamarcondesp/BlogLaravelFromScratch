@@ -23,9 +23,9 @@ class PostFactory extends Factory
             'category_id' => Category::factory(),
             'title' => $this->faker->sentence(),
             'slug' => $this->faker->slug(),
-            'excerpt' => '<p>' . implode('</p><p>', $this->faker->paragraphs(2)) . '</p>',
-            'body' => '<p>' . implode('</p><p>', $this->faker->paragraphs(2)) . '</p>',
-            'thumbnail' => 'thumbnails/illustration-' . rand(1,10) . '.png'
+            'excerpt' => '<p>'.implode('</p><p>', $this->faker->paragraphs(2)).'</p>',
+            'body' => '<p>'.implode('</p><p>', $this->faker->paragraphs(2)).'</p>',
+            'thumbnail' => 'thumbnails/illustration-'.rand(1, 10).'.png',
 
         ];
     }

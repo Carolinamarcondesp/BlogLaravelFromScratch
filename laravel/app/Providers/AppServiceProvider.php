@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-
 use App\Models\User;
 use App\Services\MailchimpNewsletter;
 use App\Services\Newsletter;
@@ -21,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
         app()->bind(Newsletter::class, function () {
             $client = (new ApiClient)->setConfig([
                 'apiKey' => config('services.mailchimp.key'),
-                'server' => 'us12'
+                'server' => 'us12',
             ]);
 
             return new MailchimpNewsletter($client);
@@ -38,14 +37,13 @@ class AppServiceProvider extends ServiceProvider
 
         //disable mass assignment restrictions -> Model::unguard();
 
-
-        Gate::define('admin', function (User $user){
+        Gate::define('admin', function (User $user) {
 
             return $user->username == 'CarolMarc';
 
         });
 
-        Blade::if('admin', function (){
+        Blade::if('admin', function () {
 
             return request()->user()?->can('admin');
         });

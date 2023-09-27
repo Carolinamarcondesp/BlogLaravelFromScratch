@@ -9,12 +9,12 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function posts(){
+    public function posts()
+    {
 
         //relationships types - hasOne, hasMany, belongsTo, belongsToMany
 
         return $this->hasMany(Post::class);
-
 
     }
 }

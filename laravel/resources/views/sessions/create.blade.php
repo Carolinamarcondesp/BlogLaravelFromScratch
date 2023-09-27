@@ -3,7 +3,7 @@
         <main class="max-w-lg mx-auto mt-10 bg-gray-100 rounded-xl">
             <x-panel>
                 <h1 class="text-center font-bold text-xl">Log In!</h1>
-                <form method="POST" action="/login" class="mt-10">
+                <form method="POST" action="{{ route('user.login') }}" class="mt-10">
                     @csrf
                     <!-- CSRF code 419 error without csrf validation READ MORE ABOUT THIS -->
 

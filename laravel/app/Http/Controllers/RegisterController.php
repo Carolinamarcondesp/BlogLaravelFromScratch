@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-
     public function create()
     {
         return view('register.create');
@@ -30,7 +28,6 @@ class RegisterController extends Controller
         auth()->login($user);*/
 
         auth()->login(User::create($attributes));
-
 
         return redirect('/')->with('success', 'Your account has been created');
     }

@@ -2,14 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
-
-use App\Http\Resources\UserResource;
-use App\Models\User;
 use App\Services\SessionsService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class SessionsController extends Controller
 {
@@ -25,9 +19,7 @@ class SessionsController extends Controller
     public function login(Request $request)
     {
 
-
         return $this->service->login($request->email, $request->password, $request->header('user-agent'), $request->wantsJson());
-
 
     }
 

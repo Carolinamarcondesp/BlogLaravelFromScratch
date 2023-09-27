@@ -12,14 +12,14 @@ class PostCommentsController extends Controller
 
         //validation
         request()->validate([
-            'body' => 'required'
+            'body' => 'required',
         ]);
 
         //add a comment to the given post
 
         $post->comments()->create([
             'user_id' => auth()->id(), //auth()->user()->id or request()->user()->id
-            'body' => request('body')
+            'body' => request('body'),
         ]);
 
         return back()->with('success', 'Comment added!');

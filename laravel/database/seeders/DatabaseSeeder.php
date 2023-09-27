@@ -26,12 +26,12 @@ class DatabaseSeeder extends Seeder
             'username' => 'CarolMarc',
             'name' => 'Carolina Marcondes',
             'email' => 'carolina.marcondes@wizardingcode.io',
-            'password' => '123456789'
+            'password' => '123456789',
 
         ]);
 
         Post::factory(20)->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         Comment::factory(5)->create();
@@ -76,7 +76,6 @@ class DatabaseSeeder extends Seeder
              ursus feugiat. Morbi quis sodales neque. Phasellus ac nunc convallis, elementum mi eget, aliquet felis.
              Cras elementum mauris et sem vehicula finibus.</p>'
          ]);*/
-
 
         //\App\Models\User::factory(10)->create();
 

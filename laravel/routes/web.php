@@ -2,16 +2,12 @@
 
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
-use App\Http\Controllers\PostCommentsController;
 use App\Models\Post;
-use App\Services\MailchimpNewsletter;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Validation\ValidationException;
-use MailchimpMarketing\ApiClient;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +20,6 @@ use MailchimpMarketing\ApiClient;
 |
 */
 
-
-
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
@@ -37,13 +31,13 @@ Route::get('/register', [RegisterController::class, 'create'])->middleware('gues
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
 Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
-Route::post('login', [SessionsController::class, 'login'])->middleware('guest');
+//Route::post('login', [SessionsController::class, 'login'])->middleware('guest');
 
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
 //Admin
 
-Route::middleware('can:admin')->group(function (){
+Route::middleware('can:admin')->group(function () {
 
     Route::get('admin/posts/create', [AdminPostController::class, 'create']);
     Route::post('admin/posts', [AdminPostController::class, 'store']);
@@ -53,10 +47,6 @@ Route::middleware('can:admin')->group(function (){
     Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy']);
 
 });
-
-
-
-
 
 /*         ******************** DEPRECATED POST CONTROLLER IS NOW HANDLING *************************
 
@@ -79,5 +69,3 @@ Route::get('authors/{author:username}', function (\App\Models\User $author) {
 
 
 */
-
-

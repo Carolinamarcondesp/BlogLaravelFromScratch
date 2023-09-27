@@ -22,10 +22,10 @@ class UserResource extends JsonResource
                 'token' => $this->token,
             ]),
 
-        $this->mergeWhen($request->route()->getName() === 'user.detail', [
-            'created_at' => $this->created_at,
-            'sessions' => TokenResource::collection($this->tokens),
-        ]),
+            $this->mergeWhen($request->route()->getName() === 'user.detail', [
+                'created_at' => $this->created_at,
+                'sessions' => TokenResource::collection($this->tokens),
+            ]),
 
         ];
     }
